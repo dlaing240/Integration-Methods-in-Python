@@ -63,7 +63,7 @@ test_figures = []
 # 1D composite midpoint and Simpson's rule:
 figures_1d_time_test = []
 for i in func_nums[0]:
-    cm_durations = time_div_dependence(integrator_method=integrators_1d[i].cm, division_nums=divs, repeats=100,
+    cm_durations = time_div_dependence(integrator_method=integrators_1d[i].composite_midpoint, division_nums=divs, repeats=100,
                                        plot=False)
     simpsons_durations = time_div_dependence(integrator_method=integrators_1d[i].simpsons, division_nums=divs,
                                              repeats=100, plot=False)
@@ -80,7 +80,7 @@ for i in func_nums[0]:
 # Time performance of the n_dim integrators:
 figures_nd_time_test = []
 for i in func_nums[1]:
-    cm_nd_durations = time_div_dependence(integrators_nd[i].cm_n_dim, division_nums=divs_nd, repeats=1, plot=False)
+    cm_nd_durations = time_div_dependence(integrators_nd[i].composite_midpoint_n_dim, division_nums=divs_nd, repeats=1, plot=False)
     simpsons_nd_durations = time_div_dependence(integrators_nd[i].simpsons_n_dim, division_nums=divs_nd, repeats=1,  plot=False)
 
     fig_nd = plt.figure()
@@ -95,7 +95,7 @@ for i in func_nums[1]:
 # 1d Monte Carlo
 mc_fig_list = []
 for i in func_nums[2]:
-    mc_durations = time_div_dependence(integrator_method=integrators_1d[i].mc, division_nums=samples, plot=False)
+    mc_durations = time_div_dependence(integrator_method=integrators_1d[i].monte_carlo, division_nums=samples, plot=False)
     fig = plt.figure()
     plt.plot(samples, mc_durations, label="Monte Carlo")
     plt.legend()
@@ -107,8 +107,8 @@ for i in func_nums[2]:
 # nd Monte Carlo
 mc_fig_list_nd = []
 for i in func_nums[3]:
-    mc_durations = time_div_dependence(integrator_method=integrators_nd[i].mc_n_dim, division_nums=samples, plot=False)
-    mc_errors = error_div_dependence_nd(integrator=integrators_nd[i], integrator_method=integrators_nd[i].mc_n_dim,
+    mc_durations = time_div_dependence(integrator_method=integrators_nd[i].monte_carlo_n_dim, division_nums=samples, plot=False)
+    mc_errors = error_div_dependence_nd(integrator=integrators_nd[i], integrator_method=integrators_nd[i].monte_carlo_n_dim,
                                         divs=samples, plot=False)
     fig = plt.figure()
     plt.plot(samples, mc_durations, label="Monte Carlo")
@@ -125,7 +125,7 @@ for i in func_nums[3]:
 # 1d midpoint and simpson's
 figs_acc = []
 for i in func_nums[4]:
-    cm_error = error_div_dependence(integrators_1d[i], integrators_1d[i].cm, divs_acc, plot=False)
+    cm_error = error_div_dependence(integrators_1d[i], integrators_1d[i].composite_midpoint, divs_acc, plot=False)
     sim_error = error_div_dependence(integrators_1d[i], integrators_1d[i].simpsons, divs_acc, plot=False)
     fig = plt.figure()
     plt.plot(divs_acc, cm_error, label='Composite Midpoint')
@@ -138,7 +138,7 @@ for i in func_nums[4]:
 
 # nd midpoint and simpson's
 for i in func_nums[5]:
-    cm_nd_error = error_div_dependence_nd(integrators_nd[i], integrators_nd[i].cm_n_dim, divs_nd_acc, plot=False)
+    cm_nd_error = error_div_dependence_nd(integrators_nd[i], integrators_nd[i].composite_midpoint_n_dim, divs_nd_acc, plot=False)
     sim_nd_error = error_div_dependence_nd(integrators_nd[i], integrators_nd[i].simpsons_n_dim, divs_nd_acc, plot=False)
     fig = plt.figure()
     plt.plot(divs_nd_acc, cm_nd_error, label='Composite Midpoint')
@@ -152,7 +152,7 @@ for i in func_nums[5]:
 # nd Monte Carlo
 mc_fig_list_error_nd = []
 for i in func_nums[6]:
-    mc_errors = error_div_dependence_nd(integrator=integrators_nd[i], integrator_method=integrators_nd[i].mc_n_dim,
+    mc_errors = error_div_dependence_nd(integrator=integrators_nd[i], integrator_method=integrators_nd[i].monte_carlo_n_dim,
                                         divs=samples, plot=False)
     fig = plt.figure()
     plt.plot(samples, mc_errors, label="Monte Carlo")
@@ -170,7 +170,7 @@ print("Testing adaptive methods")
 for i in func_nums[7]:
     # Check result using scipy.integrate.quad. Function and lower and upper bounds are given by the instance attributes.
     simpsons_test = time_test(integrators_1d[i].simpsons_adaptive, 0.01)
-    midpoint_test = time_test(integrators_1d[i].cm_adaptive, 0.01)
+    midpoint_test = time_test(integrators_1d[i].composite_midpoint_adaptive, 0.01)
     print(
         "\nfunction: ", func_str_list_1d[i],
         "\nExpected Result: ", integrate.quad(integrators_1d[i].func, integrators_1d[i].a[0], integrators_1d[i].b[0])[0],

@@ -17,11 +17,11 @@ class Integral:
 
     Methods
     -------
-    cm(n):
+    composite_midpoint(n):
         Approximates integral using the composite midpoint rule.
-    cm_adaptive(e, limit):
+    composite_midpoint_adaptive(e, limit):
         Uses the composite midpoint rule adaptively to reach the desired precision.
-    cm_n_dim(n):
+    composite_midpoint_n_dim(n):
         Uses composite midpoint rule generalised to n dimensions.
     simpsons(n):
         Uses the composite Simpson's rule to estimate the integral.
@@ -29,9 +29,9 @@ class Integral:
         Adaptively uses Simpsons to estimate the integral with a desired precision efficiently.
     simpsons_n_dim(n):
         Composite Simpsons rule generalised to n dimensions.
-    mc(n):
+    monte_carlo(n):
         Estimates integral using the Monte Carlo method.
-    mc_n_dim(n):
+    monte_carlo_n_dim(n):
         Monte Carlo method generalised to n dimensions.
     """
     def __init__(self, func, a, b):
@@ -64,7 +64,7 @@ class Integral:
         self.simps_sub_div = None
         self.mid_sub_div = None
 
-    def cm(self, n):
+    def composite_midpoint(self, n):
         """
         Approximates integral using the composite midpoint rule.
         Parameters
@@ -89,7 +89,7 @@ class Integral:
             left = right  # sets the upper bound to be the lower bound of the next rectangle
         return sum(integrals)
 
-    def cm_adaptive(self, e, limit=5000):
+    def composite_midpoint_adaptive(self, e, limit=5000):
         """
         Uses the composite midpoint rule adaptively to reach the desired precision.
         Parameters
@@ -105,11 +105,11 @@ class Integral:
         The estimate for the integral.
         """
         def recursive_integration(prev, n):
-            curr = self.cm(n)
+            curr = self.composite_midpoint(n)
             if abs(prev - curr) / curr < e or n > limit:
                 return curr, n
             return recursive_integration(curr, n*2)
-        result = recursive_integration(self.cm(1), 2)
+        result = recursive_integration(self.composite_midpoint(1), 2)
         return result
 
     def _establish_grid(self, n):
@@ -129,7 +129,7 @@ class Integral:
         volume = np.prod(div_widths)  # 'volume' of each division element is used in the integral calculation
         return div_widths, volume, start_points, end_points, dimension_number
 
-    def cm_n_dim(self, n):
+    def composite_midpoint_n_dim(self, n):
         """
         Uses composite midpoint rule generalised to n dimensions.
         Parameters
@@ -283,7 +283,7 @@ class Integral:
                 current_b[i] = b_start_points[i]
             d = 0
 
-    def mc(self, n=1000):
+    def monte_carlo(self, n=1000):
         """
         Estimates integral using the Monte Carlo method.
         Parameters
@@ -303,7 +303,7 @@ class Integral:
         integral = mean * (self.b[0] - self.a[0])
         return integral
 
-    def mc_n_dim(self, n):
+    def monte_carlo_n_dim(self, n):
         """
         Monte Carlo method generalised to n dimensions.
         Parameters
