@@ -17,12 +17,12 @@ from accuracy_test import error_div_dependence, error_div_dependence_nd
 x_min = 0
 x_max = 10
 
-# Subdivision numbers which can be used to test how accuracy or time varies with number of division
+# Subdivision numbers which can be used to test how accuracy or time varies with number of division. (Can be changed)
 divs = np.arange(1, 80, 1)
 divs_acc = np.arange(1, 10, 1)
-divs_nd = np.arange(1, 10, 1)  # If this is large then higher dimension integrals will take a long time to compute
+divs_nd = np.arange(1, 10, 1)  # If this is large then higher dimension integrals will take a long time to calculate
 divs_nd_acc = np.arange(1, 10, 1)
-samples = np.arange(1, 200, 1)  # Can be changed
+samples = np.arange(1, 200, 1)
 
 # Initialise Integrator class for each of the 1d functions
 integrators_1d = []
