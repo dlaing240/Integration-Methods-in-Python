@@ -58,8 +58,6 @@ func_nums = [
 #   TIME TESTS   #
 ##################
 
-test_figures = []
-
 # 1D composite midpoint and Simpson's rule:
 figures_1d_time_test = []
 for i in func_nums[0]:
