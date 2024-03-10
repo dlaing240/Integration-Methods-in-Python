@@ -39,14 +39,12 @@ class Integral:
         Initialises the integral class for a given function and integration bounds.
         Parameters
         ----------
-        func : callable
+        func
             The function to be integrated
-        a : float or list
-            The lower bound(s) for the integration methods. In the case of n-d functions it is a list of the lower
-             bounds for each dimension.
-        b : float or list
-            The upper bound(s) for the integration methods. In the case of n-d functions it is a list of the upper
-             bounds for each dimension.
+        a
+            The lower bound(s) for the integration methods. 
+        b
+            The upper bound(s) for the integration methods.
         """
         if not isinstance(a, (list, tuple, np.ndarray)):
             a = [a]
