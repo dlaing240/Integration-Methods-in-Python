@@ -77,15 +77,14 @@ class Integral:
 
         # division_width = (self.b - self.a) / n  # width for each rectangle
         division_width = self.width / n  # reducing the calculations slightly for adaptive method
-        integrals = []
+        integral = 0
         left = self.a[0]  # the lower bound of the first rectangle
         for i in range(0, n):
             # upper bound of the rectangle is found by adding the division width to the lower bound
             right = left + division_width
-            integral = division_width * self.func((left + right) / 2)
-            integrals.append(integral)
+            integral += division_width * self.func((left + right) / 2)
             left = right  # sets the upper bound to be the lower bound of the next rectangle
-        return sum(integrals)
+        return integral
 
     def composite_midpoint_adaptive(self, e, limit=5000):
         """
