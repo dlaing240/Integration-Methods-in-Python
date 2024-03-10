@@ -42,7 +42,7 @@ result = integral.composite_midpoint(n=100)  # This uses the composite midpoint 
 
 ### Introduction to the Integration Methods
 
-The composite midpoint method is a method of approximating the result of integration by creating a number rectangles with a fixed width
+The composite midpoint method is a method of approximating the result of integration by creating a number of rectangles with a fixed width
 and calculating their area. This approximation is very simple, but becomes increasingly accurate for higher numbers of rectangles.
 The integral calculation for each rectangle involves multiplying the rectangle width by the value of the function evaluated at the midpoint
 of that rectangle. These calculations are summed to get the final result of integration.
@@ -64,13 +64,13 @@ even simpler, as it just involves randomly sampling values for each dimension, a
 
 ### Adaptive Methods
 
-The motivation for adaptive methods is to be able to estimate an integral to a certain desired accuracy efficiently. This means that an appropriate
-number of subdivisions is used. For example, if a 2nd order polynomial was being integrated using a composite Simpson's method, a subdivision number
-higher than one is not necessary, since Simpson's would be exact. Therefore there would be unnecessary calculations and function evaluations being performed.
+The motivation for adaptive methods is to be able to estimate an integral to a certain desired accuracy efficiently. This requires the optimum
+number of subdivisions to be used. For example, if a 2nd order polynomial was being integrated using a composite Simpson's method, a subdivision number
+higher than one would result in unnecessary calculations and function evaluations being performed, since Simpson's would be exact for this polynomial.
 Adaptive methods therefore recursively use the integration methods until the desired (estimated) accuracy is reached at which point the procedure ends.
 
 The implementation for the adaptive composite midpoint involves recursively calling the composite midpoint method at twice the number of subdivisions.
-The composite midpoint only invovles one function evaluation for the midpoint of each subdivision, and these can not be reused, so this simple implementation
+The composite midpoint only invovles one function evaluation for the midpoint of each subdivision, so this simple implementation
 is enough. Simpson's is more expensive however, so it is important to reuse as many calculations and evaulations as possible, so a slightly different implementation
 was used.
 
@@ -84,7 +84,7 @@ would be to incorporate both absolute and relative error.
 In all cases with the 1D functions, the completion time of integral calculations scales linearly with the numbers of subdivisions, which is unsurprising.
 As expected, the composite midpoint method with it's fewer function evaluations has a shorter completion time per subdivision than the composite Simpson's
 method. The completion time of Monte Carlo integration depends on the number of samples in a very similar way to the time performance of composite midpoint, as it
-uses one function evaluation per sample. However, Monte Carlo is less precise at comparable subdivisions/sample numbers. The exactness of Simpsons's is demontsrated
+uses one function evaluation per sample. However, Monte Carlo is less precise at comparable subdivisions/sample numbers. The exactness of Simpson's is demontsrated
 up to polynomials of third degree, as expected, shown by the constant, near zero error (only affected by numerical precision), and this exactness is broken for the
 4th degree polynomial.
 ![simps and midpoint - time - 1d - 20000](https://github.com/dlaing240/Integration-Methods-in-Python/assets/159714200/1f68ac8a-b1dd-4ff3-9c86-e5e8d7449b32)
@@ -93,7 +93,7 @@ up to polynomials of third degree, as expected, shown by the constant, near zero
 
 
 
-In the n-dimensional case, the completion time for Simpson's and composite midpoint no longer scale linearly, as now calculations must be done in each dimension.
+In the n-dimensional case, the completion time for Simpson's and composite midpoint no longer scales linearly, as now calculations must be done in each dimension.
 As a result the time performance for these methods suffers for higher dimensions. The n dimensional generalisation of Monte Carlo integration still only uses one function
 evaluation per point though, and so even at higher dimensions the completion time is shown to increase linearly with number of samples. This highlights that Monte Carlo
 integration has an advantage for estimating integrals that are otherwise especially challenging.
